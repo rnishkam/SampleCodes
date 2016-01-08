@@ -1,0 +1,37 @@
+Q.) Implement a method for basic string compression.
+
+/* Cases: input is null or empty
+                  input = aabbccddea => a3b2c2d2e1. aaaaa => a5
+                  input = abcdef => abcdef
+                  input = a => a
+        */
+        static string CompressString(string input)
+        {
+            if (input == null)
+                throw new NullReferenceException();
+            if (input.Length == 1)
+                return input;
+            var _compressionRequired = false;
+            Dictionary<char, int> _hash = new Dictionary<char, int>();
+            foreach (var _ch in input)
+            {
+                if (_hash.ContainsKey(_ch))
+                {
+                    var _cnt = _hash[_ch];
+                    _cnt++;
+                    _hash[_ch] = _cnt;
+                    _compressionRequired = true;
+                }
+                else
+                    _hash.Add(_ch, 1);
+            }
+            var _result = string.Empty;
+            if (!_compressionRequired)
+                return input;
+            foreach (KeyValuePair<char, int> _pair in _hash)
+            {
+                _result += _pair.Key;
+                _result += _pair.Value;
+            }
+            return _result;
+        }
