@@ -1,0 +1,40 @@
+Q.) Implement a method to generate N number of primes.
+
+ static List<int> NPrimes(int number)
+        {
+            var _listOfPrimes = new List<int>();
+            if (number < 1)
+                return _listOfPrimes;
+            _listOfPrimes.Add(2);
+            var _num = 3;
+            while (_listOfPrimes.Count < number)
+            {
+                if (IsPrime(_num))
+                    _listOfPrimes.Add(_num);
+                _num = _num + 2;
+            }
+            return _listOfPrimes;            
+        }
+        /* num < 2 => False           
+           num = 2 || num = 3 => True
+           num % 2 = 0 => False           
+             for (i = 3, i < num/2; i= i + 2)                        
+                if (num%i = 0)        
+                    return false;
+             return true;
+        */
+        static bool IsPrime(int number)
+        {
+            if (number < 2)
+                return false;
+            if (number == 2 || number == 3)
+                return true;
+            if (number % 2 == 0)
+                return false;
+            for (int i = 3; i < number/2; i = i+2)
+            {
+                if (number % i == 0)
+                    return false;
+            }
+            return true;
+        }
