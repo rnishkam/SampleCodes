@@ -23,9 +23,11 @@ Q.) Given a list of stock prices, what would be the max profit.
                   maxProfit = profit
                   priceImproved = true;
                  }
-                   
                }
-               return maxProfit               
+               return maxProfit      
+        TimeComplexity: o(n): n equals number of prcies in the list
+                                Done in a single pass
+               
         */
         static int MaxProfit(List<int> listOfPrices)
         {
