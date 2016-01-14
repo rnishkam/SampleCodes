@@ -1,0 +1,68 @@
+Q.) Given List of Numbers and an integer, find if any 2 numbers in the list sum to the given integer.
+
+/*Cases: input.length < 2 => throw  exception
+                 input.length > 2 => True
+                                  => False
+          Algo1: Sort the numbers in the array
+                 startIndex(0), endIndex(input.length - 1) 
+                 s = 0
+                 while (s != sum)
+                 {
+                    s = sI + eI
+                    if (s < sum)
+                     sI++;
+                    else
+                      eI--;
+                    if (sI == eI)
+                      return false;
+                }
+                return true
+         Time Complexity: O(nlogn): n equals number of elements in the array
+         Algo2: Hash each element
+                foreach (number in input)
+                    if ( hash contains (sum - number) )
+                      return true;
+                    else
+                    {
+                         key = number
+                        value = sum - number
+                    }
+                return false;                  
+        Time Complexity: O(n): n equals number of elements in the array, extra space for hashing is required
+        */
+        static bool SumOfNumbers(List<int> input, int sum)
+        {
+            if (input.Count < 2)
+                throw new ArgumentException();
+            input.Sort();
+            var _startIndex = 0;
+            var _endIndex = input.Count - 1;
+            var _s = 0;
+            while (_s != sum)
+            {
+                _s = input[_startIndex] + input[_endIndex];
+                if (_s < sum)
+                    _startIndex++;
+                else
+                    _endIndex--;
+                if (_startIndex >= _endIndex)
+                    return false;
+            }
+            return true;            
+        }
+        static bool SumOfNumbersWithBuffer(List<int> input, int sum)
+        {
+            if (input.Count < 2)
+                throw new ArgumentException();
+            var _hash = new Hashtable();
+            foreach(var _num in input)
+            {
+                if (_hash[sum - _num] == null)
+                {
+                    _hash.Add(_num, (sum - _num));
+                }
+                else         
+                    return true;
+            }
+            return false;
+        }
