@@ -1,0 +1,56 @@
+Q.) Given a list of stock prices, what would be the max profit.
+        
+        Ex: {23,43,22,45,32,55,53,51,64,15,56,55,20} => MaxProfit = 64 - 22 = 42
+
+        Cases: sorted asc
+               sorted desc
+               same price: {4,4,4,4,4,4} => don't sell
+               price changes
+
+        Algo: input.length < 2 => exception
+               sorted desc => never sell
+               sorted asc => lastindex - firstindex
+               minPrice = a[0]
+               maxProfit = 0;
+               priceImproved = false
+               foreach (var price in prices)
+               {
+                 if (minPrice > price)
+                    minPrice = price
+                 profit = price - minPrice
+                 if (maxProfit < profit)
+                 {
+                  maxProfit = profit
+                  priceImproved = true;
+                 }
+                   
+               }
+               return maxProfit               
+        */
+        static int MaxProfit(List<int> listOfPrices)
+        {
+            if (listOfPrices.Count < 2)
+                throw new ArgumentException();
+            var _noProfit = -1;           
+            var _minPrice = listOfPrices[0];
+            var _maxProfit = 0;
+            var _profit = 0;
+            var _priceImproved = false;
+            foreach (var _price in listOfPrices)
+            {
+                if (_minPrice > _price)
+                    _minPrice = _price;
+                _profit = _price - _minPrice;
+                if (_maxProfit < _profit)
+                {
+                    _maxProfit = _profit;
+                    _priceImproved = true;
+                }                    
+            }
+            if (_priceImproved)
+                return _maxProfit;
+
+            Console.WriteLine("Price not improving, cannot sell.");
+            return _noProfit;     
+            
+        }
