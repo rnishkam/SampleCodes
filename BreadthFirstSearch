@@ -1,0 +1,18 @@
+
+Uses a queue.
+public void BFS()
+        {
+            if (root == null)
+                throw new NullReferenceException();
+            var _queue = new Queue<Node>();
+            _queue.Enqueue(root);
+            while (_queue.Count > 0)
+            {
+                var _temp = _queue.Dequeue();
+                _temp.Display();
+                if (_temp.left != null)
+                    _queue.Enqueue(_temp.left);
+                if (_temp.right != null)
+                    _queue.Enqueue(_temp.right);
+            }
+        }
