@@ -1,0 +1,21 @@
+
+Uses 2 stacks
+ public void IterativePostOrder()
+        {
+            if (root == null)
+                throw new NullReferenceException();
+            var _par = new Stack<Node>();
+            var _ch = new Stack<Node>();
+            _ch.Push(root);
+            while (_ch.Count > 0)
+            {
+                var _topNode = _ch.Pop();
+                _par.Push(_topNode);
+                if (_topNode.left != null)
+                    _ch.Push(_topNode.left);
+                if (_topNode.right != null)
+                    _ch.Push(_topNode.right);
+            }
+            while (_par.Count > 0)
+                _par.Pop().Display();
+        }
