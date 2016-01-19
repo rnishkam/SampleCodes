@@ -1,0 +1,28 @@
+Uses 1 stack
+public void IterativeInOrder()
+        {
+           if (root == null)
+                throw new NullReferenceException();
+            var _cur = root;
+            var _s = new Stack<Node>();
+            while (_cur != null)
+            {
+                _s.Push(_cur);
+                _cur = _cur.left;
+            }
+            while (_s.Count > 0)
+            {
+                var _temp = _s.Pop();
+                _temp.Display();
+                _temp = _temp.right;
+                if (_temp != null)
+                {
+                    while (_temp != null)
+                    {
+                        _s.Push(_temp);
+                        _temp = _temp.left;
+                    }
+                        
+                }
+            }
+        }
