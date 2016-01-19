@@ -1,0 +1,23 @@
+
+uses a stck and a queue
+queue stores node, once the node deques, it stores left child.
+stck stores right child of the node.
+ public void DFS()
+        {
+            if (root == null)
+                throw new NullReferenceException();
+            var _q = new Queue<Node>();
+            var _s = new Stack<Node>();
+            _q.Enqueue(root);
+            while (_q.Count > 0)
+            {
+                var _temp = _q.Dequeue();
+                _temp.Display();
+                if (_temp.left != null)
+                    _q.Enqueue(_temp.left);
+                if (_temp.right != null)
+                    _s.Push(_temp.right);
+                if (_q.Count == 0 && _s.Count > 0)
+                    _q.Enqueue(_s.Pop());
+            }
+        }
