@@ -1,0 +1,18 @@
+
+Uses a stack
+public void IterativePreorder()
+        {
+            if (root == null)
+                throw new NullReferenceException();
+            var _s = new Stack<Node>();
+            _s.Push(root);
+            while (_s.Count > 0)
+            {
+                var _temp = _s.Pop();
+                _temp.Display();
+                if (_temp.right != null)
+                    _s.Push(_temp.right);
+                if (_temp.left != null)
+                    _s.Push(_temp.left);
+            }
+        }
