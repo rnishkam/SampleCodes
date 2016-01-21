@@ -1,0 +1,73 @@
+Q.) Revers words in a string.
+
+
+/* Cases: input = null or empty
+          input = "my name is ruchir"
+          input = "ruchir"
+          input = "  ruchir  "
+          input = "my   name   is   ruchir"
+          input = "   my   name   is ruchir"
+        */
+        public static string ReverseWords(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
+            var _index = 0;
+            s = s.Trim();
+            while (_index < s.Length)
+            {
+                if (s[_index] == ' ')
+                    break;
+                _index++;
+            }
+            if (_index == s.Length)
+                return s;
+            _index = 0;
+            var _startIndex = _index;
+            var _s = s.ToCharArray();
+            ReverseWord(_s, 0, s.Length - 1);
+            while (_index < _s.Length)
+            {
+                _startIndex = _index;
+                while (_s[_startIndex] == ' ')
+                {
+                    _startIndex++;
+                    _index++;
+                }                
+                while (_index < _s.Length && _s[_index] != ' ')
+                    _index++;
+                
+                ReverseWord(_s, _startIndex, _index - 1);
+                _index++;
+            }
+
+            var _result = string.Empty;
+            foreach (var _ch in _s)
+            {
+                if (_ch == ' ' && _result[_result.Length - 1] == ' ')
+                    continue;
+                else
+                    _result += _ch;
+            }
+                
+
+            return _result;
+            
+        }
+        public static void ReverseWord(char[] input, int startIndex, int endIndex)
+        {
+            if (endIndex - startIndex + 1 < 2)
+                return;        
+            var _md = (startIndex + endIndex) / 2;
+            var _index = startIndex;
+            var _cnt = 0;
+            while (_index <= _md)
+            {
+                var _temp = input[_index];
+                input[_index] = input[endIndex - _cnt];
+                input[endIndex - _cnt] = _temp;
+                _cnt++;
+                _index++;
+            }
+            
+        }
