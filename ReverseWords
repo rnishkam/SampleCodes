@@ -29,6 +29,7 @@ Q.) Revers words in a string.
             while (_index < _s.Length)
             {
                 _startIndex = _index;
+                // checks multiple spaces between words
                 while (_s[_startIndex] == ' ')
                 {
                     _startIndex++;
@@ -44,6 +45,7 @@ Q.) Revers words in a string.
             var _result = string.Empty;
             foreach (var _ch in _s)
             {
+                // removes multiple spaces between words
                 if (_ch == ' ' && _result[_result.Length - 1] == ' ')
                     continue;
                 else
