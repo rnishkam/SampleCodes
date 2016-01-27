@@ -1,0 +1,62 @@
+Implement UrlShortener.
+
+We have a databse of Ids and the OriginalUrl.
+
+
+class UrlShortener
+        {
+            string alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            int dividingBase;
+            string urlPrefix = "http://shor.ty/";
+            public UrlShortener()
+            {
+                dividingBase = alphabet.Length;
+            }
+            public string ShortenUrl(string input)
+            {
+                long _urlId = GetUrlId(input);
+                var _shortUrl = Encode(_urlId);
+
+                return urlPrefix + _shortUrl;
+            }
+            public string GetOriginalUrl(string url)
+            {
+                var _id = DeCode(url);
+                return "www.google.com";
+            }
+            private string Encode(long v)
+            {                
+                var _list = new List<long>();
+                while (v > 0)
+                {
+                    _list.Add(v % 62);
+                    v = v / 62;
+                }
+                var _result = string.Empty;
+                var _hash = GetHash();
+                foreach (var _num in _list)
+                    _result += _hash[_num];
+
+                return _result;                
+            }
+            private long DeCode(string shorturl)
+            {
+                var _idex = urlPrefix.Length;
+                var _url = shorturl.Substring(_idex, (shorturl.Length - _idex));
+                var _urlId = 0;
+                foreach(char _ch in _url)
+                {
+                    var _index = alphabet.IndexOf(_ch);
+                    _urlId = dividingBase * _urlId + _index;
+                }
+                return _urlId;                
+            }            
+            private char[] GetHash()
+            {
+                return alphabet.ToCharArray();               
+            }            
+            private long GetUrlId(string input)
+            {
+                return 765;
+            }          
+        }
