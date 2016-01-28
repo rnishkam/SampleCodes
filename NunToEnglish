@@ -1,0 +1,93 @@
+Q.) Given an integer, print an english phrase that describes the integer. 
+    Ex: 8972 => Eight Thousand nine Hundred Seventy Two
+
+ class NumToPhrase
+        {
+            List<string> order;
+            List<string> tens;
+            List<string> units;
+            
+            public NumToPhrase()
+            {
+                tens = new List<string>();
+                tens.Add("");
+                tens.Add("");
+                tens.Add("Twenty ");
+                tens.Add("Thirty ");
+                tens.Add("Forty ");
+                tens.Add("Fifty ");
+                tens.Add("Sixty ");
+                tens.Add("Seventy ");
+                tens.Add("Eighty ");
+                tens.Add("Ninety ");
+                tens.Add("Ten ");
+                tens.Add("Eleven ");
+                tens.Add("Twelve ");
+                tens.Add("Thirteen ");
+                tens.Add("Fourteen ");
+                tens.Add("Fifteen ");
+                tens.Add("Sixteen ");
+                tens.Add("Seventeen ");
+                tens.Add("Eighteen ");
+                tens.Add("Nineteen ");                  
+                
+                units = new List<string>();
+                units.Add("");
+                units.Add("One ");
+                units.Add("Two ");
+                units.Add("Three ");
+                units.Add("Four ");
+                units.Add("Five ");
+                units.Add("Six ");
+                units.Add("Seven ");
+                units.Add("Eight ");
+                units.Add("Nine ");
+                
+                order = new List<string>();                
+                order.Add("");
+                order.Add("Thousand ");
+                order.Add("Million ");
+                order.Add("Billion ");               
+            }
+            public string Convert(int input)
+            {
+                if (input == 0)
+                    return "Zero";
+                var _isNeg = false;
+                if (input < 0)
+                {
+                    _isNeg = true;
+                    input *= -1;
+                }
+                var _s = new Stack();
+                while (input > 0)
+                {
+                    _s.Push(input % 1000);
+                    input = input / 1000;
+                }
+                var _orderCnt = _s.Count - 1;                
+                var _result = string.Empty;               
+                foreach (int _num in _s)
+                {                    
+                    var _phrase = string.Empty;
+                    if (_num > 100)                    
+                        _phrase = units[_num / 100] + "Hundred ";
+                    _phrase += GetTensPhrase(_num > 100 ?_num % 100: _num);
+
+                    _result += _phrase + order[_orderCnt];
+                    _orderCnt--;
+                }
+                
+                return _isNeg ? "Negative "+ _result :  _result;
+            }
+
+            private string GetTensPhrase(int num)
+            {                
+                if (num < 10)
+                    return units[num];
+                else if (num > 10 && num < 20)
+                    return tens[num];                
+                else
+                    return tens[num / 10] + units[num % 10];    
+            }
+        }
