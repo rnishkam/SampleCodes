@@ -1,0 +1,116 @@
+using System.Collections.Generic;
+
+namespace LRU
+{
+    class LRU
+    {
+        public class Node
+        {
+            public int key;
+            public Node next;
+            public Node prev;
+
+            public Node(int k)
+            {
+                key = k;
+            }
+        }
+
+        public class DoublyList
+        {
+            public Node head;
+            public Node tail;
+            public DoublyList() { }
+
+            // Adds as Head node
+            public void Add(Node n)
+            {
+                if (head == null)
+                {
+                    head = n;
+                    tail = head;
+                }
+                else
+                {
+                    n.next = head;
+                    head.prev = n;
+                    head = n;
+                }
+            }
+
+            public void MoveToHead(Node n)
+            {
+                if (n == null || n.prev == null)
+                    return;
+                if (n.next == null)
+                {
+                    var newTail = n.prev;
+                    newTail.next = null;
+                    tail = newTail;
+                }
+                else
+                {
+                    var tempPrev = n.prev;
+                    var tempNext = n.next;
+                    tempPrev.next = tempNext;
+                    tempNext.prev = tempPrev;
+                }
+                n.next = head;
+                head.prev = n;
+                head = n;
+            }
+
+            public void RemoveTailNode()
+            {
+                if (tail == null)
+                    return;
+
+                var newTail = tail.prev;
+                tail.prev = null;
+                newTail.next = null;
+                tail = newTail;
+            }
+        }
+        private int capacity;
+        Dictionary<int, Node> entries = new Dictionary<int, Node>();
+        DoublyList list = new DoublyList();
+
+        public LRU(int cap)
+        {
+            capacity = cap;
+        }
+
+        public void Set(int k)
+        {
+            Node entry;
+            if (entries.ContainsKey(k))
+            {
+                entry = entries[k];
+                list.MoveToHead(entry);
+            }
+            else
+            {
+                if (entries.Count == capacity)
+                {
+                    entries.Remove(list.tail.key);
+                    list.RemoveTailNode();
+                }
+                entry = new Node(k);
+                entries.Add(k,entry);
+                list.Add(entry);
+            }
+            
+        }
+        public bool Get(int k)
+        {
+            if (entries.ContainsKey(k))
+            {
+                var entry = entries[k];
+                list.MoveToHead(entry);
+                return true;
+            }
+            return false;
+        }
+
+    }
+}
