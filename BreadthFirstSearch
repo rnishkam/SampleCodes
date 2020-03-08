@@ -4,15 +4,15 @@ public void BFS()
         {
             if (root == null)
                 throw new NullReferenceException();
-            var _queue = new Queue<Node>();
-            _queue.Enqueue(root);
-            while (_queue.Count > 0)
+            var queue = new Queue<Node>();
+            queue.Enqueue(root);
+            while (queue.Count > 0)
             {
-                var _temp = _queue.Dequeue();
-                _temp.Display();
-                if (_temp.left != null)
-                    _queue.Enqueue(_temp.left);
-                if (_temp.right != null)
-                    _queue.Enqueue(_temp.right);
+                var temp = queue.Dequeue();
+                temp.Display();
+                if (temp.left != null)
+                    queue.Enqueue(_temp.left);
+                if (temp.right != null)
+                    queue.Enqueue(temp.right);
             }
         }
