@@ -6,18 +6,18 @@ stck stores right child of the node.
         {
             if (root == null)
                 throw new NullReferenceException();
-            var _q = new Queue<Node>();
-            var _s = new Stack<Node>();
-            _q.Enqueue(root);
-            while (_q.Count > 0)
+            var q = new Queue<Node>();
+            var s = new Stack<Node>();
+            q.Enqueue(root);
+            while (q.Count > 0)
             {
-                var _temp = _q.Dequeue();
-                _temp.Display();
-                if (_temp.left != null)
-                    _q.Enqueue(_temp.left);
-                if (_temp.right != null)
-                    _s.Push(_temp.right);
-                if (_q.Count == 0 && _s.Count > 0)
-                    _q.Enqueue(_s.Pop());
+                var temp = _q.Dequeue();
+                temp.Display();
+                if (temp.left != null)
+                    q.Enqueue(temp.left);
+                if (temp.right != null)
+                    s.Push(temp.right);
+                if (q.Count == 0 && s.Count > 0)
+                    q.Enqueue(s.Pop());
             }
         }
